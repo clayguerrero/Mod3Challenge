@@ -43,39 +43,50 @@ function passLength(val) {
 
 function types() {
   let valType = prompt(
-    "what types of characters would you like to include? (lowercase, uppercase, numeric, and/or special)"
+    "What types of characters would you like to include? (lowercase, uppercase, numeric, and/or special)"
   );
   if (
     valType.split(" ").includes("lowercase") ||
-    valType.split(",").includes("lowercase")
+    valType.split(",").includes("lowercase") ||
+    valType.split(" ").includes("lowercase,") ||
+    valType.split(",").includes("lowercase,")
   ) {
     data.push("abcdefghijklmnopqrstuvwxyz");
   }
   if (
     valType.split(" ").includes("uppercase") ||
-    valType.split(",").includes("uppercase")
+    valType.split(",").includes("uppercase") ||
+    valType.split(" ").includes("uppercase,") ||
+    valType.split(",").includes("uppercase,")
   ) {
     data.push("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
   }
   if (
     valType.split(" ").includes("numeric") ||
-    valType.split(",").includes("numeric")
+    valType.split(",").includes("numeric") ||
+    valType.split(" ").includes("numeric,") ||
+    valType.split(",").includes("numeric,")
   ) {
     data.push("0123456789");
   }
   if (
     valType.split(" ").includes("special") ||
-    valType.split(",").includes("special")
+    valType.split(",").includes("special") ||
+    valType.split(" ").includes("special,") ||
+    valType.split(",").includes("special,")
   ) {
     data.push("!@#$%^&*()");
   }
   if (data.length >= 1) {
     creator(data);
-  } else generatePassword();
+  } else
+    prompt('You did not select a valid character type, you must start over', 'Press enter or select the ok button')
+    generatePassword();
 }
 
 function creator() {
   let randomNum;
+
   for (let i = 0; i <= len; i++) {
     randomNum = Math.floor(Math.random() * data.join("").length);
     pass += data.join("").substring(randomNum, randomNum + 1);
@@ -84,7 +95,7 @@ function creator() {
 }
 
 function setToDefault() {
-  console.log('info: ',len,data,pass)
+  // console.log("info: ", len, data, pass);
   len = null;
   data = [];
   pass = "";
