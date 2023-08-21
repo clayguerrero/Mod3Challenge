@@ -2,7 +2,7 @@
 
 // let valType;
 let len;
-let data = [];
+let data = ['',];
 let pass = "";
 let attemptCount = 0;
 
@@ -31,14 +31,10 @@ function initialRes(input) {
 
 function passLength(val) {
   if (val >= 8 && val <= 128) {
-    len = val-=1;
+    len = val -= 1;
     types();
   } else {
-    generatePassword()
-    // size = prompt(
-    //   "Please select the length of the password (8-128 characters)"
-    // );
-    // passLength(val);
+    generatePassword();
   }
 }
 
@@ -72,8 +68,7 @@ function types() {
   }
   if (data.length > 1) {
     creator(data);
-  } else
-    generatePassword()
+  } else generatePassword();
   //   valType = prompt(
   //     "what types of characters would you like to include? (lowercase, uppercase, numeric, and/or special)"
   //   );
