@@ -1,10 +1,10 @@
 // Assignment code here
 
 // let valType;
-let len;
-let data = ['',];
+let len = null;
+let data = [];
 let pass = "";
-let attemptCount = 0;
+// let attempt = true;
 
 function generatePassword() {
   let attempt = true;
@@ -12,6 +12,9 @@ function generatePassword() {
   let res = tip.split("");
 
   if (attempt === false) {
+    len = null;
+    data = [];
+    pass = "";
     generatePassword();
   } else {
     initialRes(res);
@@ -66,22 +69,25 @@ function types() {
   ) {
     data.push("!@#$%^&*()");
   }
-  if (data.length > 1) {
+  if (data.length >= 1) {
     creator(data);
   } else generatePassword();
-  //   valType = prompt(
-  //     "what types of characters would you like to include? (lowercase, uppercase, numeric, and/or special)"
-  //   );
-  // types();
 }
 
-function creator(arr) {
+function creator() {
   let randomNum;
   for (let i = 0; i <= len; i++) {
     randomNum = Math.floor(Math.random() * data.join("").length);
     pass += data.join("").substring(randomNum, randomNum + 1);
   }
   console.log(pass);
+}
+
+function setToDefault() {
+  console.log('info: ',len,data,pass)
+  len = null;
+  data = [];
+  pass = "";
 }
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
@@ -95,4 +101,5 @@ function writePassword() {
 }
 
 // Add event listener to generate button
+generateBtn.addEventListener("click", setToDefault);
 generateBtn.addEventListener("click", writePassword);
