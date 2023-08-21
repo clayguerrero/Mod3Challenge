@@ -4,6 +4,7 @@
 let len;
 let data = [];
 let pass = "";
+let attemptCount = 0;
 
 function generatePassword() {
   let attempt = true;
@@ -13,14 +14,14 @@ function generatePassword() {
   if (attempt === false) {
     generatePassword();
   } else {
-    yes(res);
+    initialRes(res);
     return pass;
   }
   attempt = false;
 }
 
-function yes(input) {
-  if (input == "Y" || input == "y") {
+function initialRes(input) {
+  if (input.includes("y") || input.includes("Y")) {
     size = prompt(
       "Please select the length of the password (8-128 characters)"
     );
@@ -30,30 +31,53 @@ function yes(input) {
 
 function passLength(val) {
   if (val >= 8 && val <= 128) {
-    len = val;
+    len = val-=1;
     types();
-  } else generatePassword();
+  } else {
+    generatePassword()
+    // size = prompt(
+    //   "Please select the length of the password (8-128 characters)"
+    // );
+    // passLength(val);
+  }
 }
 
 function types() {
   let valType = prompt(
     "what types of characters would you like to include? (lowercase, uppercase, numeric, and/or special)"
   );
-  if (valType.split(" ").includes("lowercase")) {
+  if (
+    valType.split(" ").includes("lowercase") ||
+    valType.split(",").includes("lowercase")
+  ) {
     data.push("abcdefghijklmnopqrstuvwxyz");
   }
-  if (valType.split(" ").includes("uppercase")) {
+  if (
+    valType.split(" ").includes("uppercase") ||
+    valType.split(",").includes("uppercase")
+  ) {
     data.push("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
   }
-  if (valType.split(" ").includes("numeric")) {
+  if (
+    valType.split(" ").includes("numeric") ||
+    valType.split(",").includes("numeric")
+  ) {
     data.push("0123456789");
   }
-  if (valType.split(" ").includes("special")) {
+  if (
+    valType.split(" ").includes("special") ||
+    valType.split(",").includes("special")
+  ) {
     data.push("!@#$%^&*()");
   }
   if (data.length > 1) {
     creator(data);
-  } else generatePassword();
+  } else
+    generatePassword()
+  //   valType = prompt(
+  //     "what types of characters would you like to include? (lowercase, uppercase, numeric, and/or special)"
+  //   );
+  // types();
 }
 
 function creator(arr) {
