@@ -8,4 +8,4 @@
 ![alt text](./Develop/Images/completedApp.PNG)
 
 # Deployed App Link
-[link](https://clayguerrero.github.io/Mod3Challenge/Develop/)
+[link](https://clayguerrero.github.io/Mod3Challenge-Password-Generator/Develop/)
