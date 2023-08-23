@@ -16,7 +16,7 @@ function generatePassword() {
     initialRes(res);
     return pass;
   }
-  attempt = false;
+  // attempt = false;
 }
 function initialRes(input) {
   if (input.includes("y") || input.includes("Y")) {
@@ -24,22 +24,32 @@ function initialRes(input) {
       "Please select the length of the password (8-128 characters)"
     );
     passLength(size);
-  } else generatePassword();
-}
-function passLength(val) {
-  if (val >= 8 && val <= 128) {
-    len = val -= 1;
-    types();
-  } else {
-    // let con = confirm(
-    //   "Your password length must be between 8 and 128 characters long. Please try again."
-    // );
+  } else if (!input.includes || input.includes("Y")) {
+    // confirm('not long enough');
     generatePassword();
   }
 }
+function passLength(size) {
+  let hasNumber = /\d/;
+  if (size >= 8 && size <= 128) {
+    len = size -= 1;
+    console.log('size',size)
+    console.log('length',len)
+    types();
+  } else if (size < 8 || size > 128) {
+    confirm(
+      "Your password length must be between 8 and 128 characters long. Please try again."
+    );
+    initialRes("y");
+  } else if (!size.hasNumber) {
+    confirm("The length must be a number. Please try again.");
+    initialRes("y");
+  }
+}
 function types() {
+  let validTypes = false;
   let valType = prompt(
-    "what types of characters would you like to include? (lowercase, uppercase, numeric, and/or special)"
+    "What types of characters would you like to include? (lowercase, uppercase, numeric, and/or special)"
   );
   if (
     valType.split(" ").includes("lowercase") ||
@@ -47,6 +57,7 @@ function types() {
     valType.split(" ").includes("lowercase,") ||
     valType.split(",").includes("lowercase,")
   ) {
+    validTypes = true;
     data.push("abcdefghijklmnopqrstuvwxyz");
   }
   if (
@@ -55,6 +66,7 @@ function types() {
     valType.split(" ").includes("uppercase,") ||
     valType.split(",").includes("uppercase,")
   ) {
+    validTypes = true;
     data.push("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
   }
   if (
@@ -63,6 +75,7 @@ function types() {
     valType.split(" ").includes("numeric,") ||
     valType.split(",").includes("numeric,")
   ) {
+    validTypes = true;
     data.push("0123456789");
   }
   if (
@@ -71,13 +84,15 @@ function types() {
     valType.split(" ").includes("special,") ||
     valType.split(",").includes("special,")
   ) {
+    validTypes = true;
     data.push("!@#$%^&*()");
   }
-  if (data.length >= 1) {
+  if (data.length >= 1 && validTypes === true) {
     creator(data);
-  } else
-
-  generatePassword();
+  } else if (validTypes === false) {
+    confirm("You did not select a valid character type. Please try again.");
+    passLength(len+=1)
+  } else generatePassword();
 }
 
 function creator() {
@@ -90,7 +105,7 @@ function creator() {
 }
 
 function setToDefault() {
-  // console.log("info: ", len, data, pass);
+  console.log("info: ", len, data, pass);
   len = null;
   data = [];
   pass = "";
