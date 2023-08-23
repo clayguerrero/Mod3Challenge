@@ -1,10 +1,6 @@
-// Assignment code here
-
-// let valType;
 let len = null;
 let data = [];
 let pass = "";
-// let attempt = true;
 
 function generatePassword() {
   let attempt = true;
@@ -22,7 +18,6 @@ function generatePassword() {
   }
   attempt = false;
 }
-
 function initialRes(input) {
   if (input.includes("y") || input.includes("Y")) {
     size = prompt(
@@ -31,19 +26,20 @@ function initialRes(input) {
     passLength(size);
   } else generatePassword();
 }
-
 function passLength(val) {
   if (val >= 8 && val <= 128) {
     len = val -= 1;
     types();
   } else {
+    // let con = confirm(
+    //   "Your password length must be between 8 and 128 characters long. Please try again."
+    // );
     generatePassword();
   }
 }
-
 function types() {
   let valType = prompt(
-    "What types of characters would you like to include? (lowercase, uppercase, numeric, and/or special)"
+    "what types of characters would you like to include? (lowercase, uppercase, numeric, and/or special)"
   );
   if (
     valType.split(" ").includes("lowercase") ||
@@ -80,18 +76,17 @@ function types() {
   if (data.length >= 1) {
     creator(data);
   } else
-    prompt('You did not select a valid character type, you must start over', 'Press enter or select the ok button')
-    generatePassword();
+
+  generatePassword();
 }
 
 function creator() {
   let randomNum;
-
   for (let i = 0; i <= len; i++) {
     randomNum = Math.floor(Math.random() * data.join("").length);
     pass += data.join("").substring(randomNum, randomNum + 1);
   }
-  console.log(pass);
+  // console.log(pass);
 }
 
 function setToDefault() {
@@ -107,7 +102,6 @@ var generateBtn = document.querySelector("#generate");
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
   passwordText.value = password;
 }
 
